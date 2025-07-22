@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "name": "karl",
+        "password": "1234",
+        "age": 17,
+        "city": "Toshkent"
+    },
+    {
+        "id": 2,
+        "name": "asad",
+        "password": "1234",
+        "age": 17,
+        "city": "Toshkent"
+    },
+    {
+        "id": 3,
+        "name": "umar",
+        "password": "1234",
+        "age": 17,
+        "city": "Toshkent"
+    }
+]

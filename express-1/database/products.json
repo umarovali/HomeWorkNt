@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "title": "Iphone 15pro max",
+        "price": 500,
+        "produced": "USA",
+        "desc": "Lorem ipsum dollar sit amet with men arr"
+    },
+    {
+        "id": 2,
+        "title": "Iphone 15pro max",
+        "price": 600,
+        "produced": "dubay",
+        "desc": "Lorem ipsum dollar sit amet with men arr"
+    },
+    {
+        "id": 3,
+        "title": "Iphone 11pro max",
+        "price": 600,
+        "produced": "dubay",
+        "desc": "Lorem ipsum dollar sit amet with men arr"
+    },
+    {
+        "id": 4,
+        "title": "Samsung Galaxy S22 ultra",
+        "price": 600,
+        "produced": "USA",
+        "desc": "Lorem ipsum dollar sit amet with men arr"
+    }
+]
