@@ -29,7 +29,7 @@ const User = mongoose.model("user", UserSchema);
 
 server.get("/books", async (req, res) => {
     let { page = 1, take = 5, price, author, year } = req.query
-    let skip = (page - 1) * take
+    let skip = (page - 1) * take    
     let filter = {};
 
     if (price) filter.price = price;

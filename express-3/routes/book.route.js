@@ -5,8 +5,15 @@ const { Author } = require("../models/author");
 const api = express.Router();
 
 api.get("/", async (req, res) => {
+    let { page = 1, take = 3, year, price } = req.query
+    let skip = (page - 1) * take
+    let filter = {};
+
+    if (year) filter.year = +year
+    if (price) filter.price = +price
+
     try {
-        let book = await Book.find().populate("author");
+        let book = await Book.find(filter).skip(skip).limit(+take).populate("author");
         res.status(200).json({ data: book, message: "Book found successfuly", status: 200 });
     } catch (err) {
         res.status(404).json({ message: err.message, status: 404 })
