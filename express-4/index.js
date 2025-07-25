@@ -4,16 +4,13 @@ app.use(express.json());
 const cors = require("cors");
 app.use(cors());
 const { connectDB } = require("./config/db");
-const AuthorRoute = require("./routes/author.route");
-const BookRoute = require("./routes/book.route");
+const CategoryRoute = require("./routes/category.routes");
+const ProductRoute = require("./routes/product.routes");
 
 connectDB()
 
-
-app.use("/author", AuthorRoute)
-app.use("/book", BookRoute)
-
-
+app.use("/category", CategoryRoute);    
+app.use("/product", ProductRoute);    
 
 
 
