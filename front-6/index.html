@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket io</title>
+    <link rel="stylesheet" href="./main.css" />
+</head>
+
+<body>
+
+    <ul class="chat-messages">
+       
+    </ul>
+
+    <div class="chat-send">
+        <input type="text" placeholder="Message..." class="chat-input" />
+        <button class="chat-send-btn">send</button>
+    </div>
+
+    <div class="chat-join">
+        <input type="text" placeholder="Join..." class="room-input" />
+        <button class="room-join-btn">join</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js"
+        integrity="sha512-8BHxHDLsOHx+flIrQ0DrZcea7MkHqRU5GbTHmbdzMRnAaoCIkZ97PqZcXJkKZckMMhqfoeaJE+DNUVuyoQsO3Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="./main.js"></script>
+</body>
+
+</html>
