@@ -1,12 +1,10 @@
 -- Active: 1755252366128@@127.0.0.1@3306@power_tools
 
--- таблица районов
 CREATE TABLE district (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
--- пользователи (владельцы, клиенты)
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -25,7 +23,6 @@ ALTER TABLE users
 MODIFY role ENUM('client', 'owner') NOT NULL DEFAULT 'client';
 
 
--- магазины инструментов
 CREATE TABLE shop (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -38,7 +35,6 @@ CREATE TABLE shop (
     FOREIGN KEY (district_id) REFERENCES district(id)
 );
 
--- сами инструменты
 CREATE TABLE tool (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -47,7 +43,6 @@ CREATE TABLE tool (
     tool_price DECIMAL(8,2) NOT NULL
 );
 
--- связь магазин ↔ инструмент (сколько стоит аренда)
 CREATE TABLE shop_tool (
     id INT AUTO_INCREMENT PRIMARY KEY,
     shop_id INT NOT NULL,
@@ -57,14 +52,16 @@ CREATE TABLE shop_tool (
     FOREIGN KEY (tool_id) REFERENCES tool(id)
 );
 
--- заказы (клиенты арендуют инструменты)
 CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     client_id INT NOT NULL,
     shop_tool_id INT NOT NULL,
     order_date DATE NOT NULL,
-    period INT NOT NULL, -- срок аренды (например, дней)
+    period INT NOT NULL, 
     total_price DECIMAL(8,2) NOT NULL,
     FOREIGN KEY (client_id) REFERENCES users(id),
     FOREIGN KEY (shop_tool_id) REFERENCES shop_tool(id)
 );
+
+ALTER TABLE orders 
+MODIFY order_date DATE NOT NULL DEFAULT (CURRENT_DATE);
