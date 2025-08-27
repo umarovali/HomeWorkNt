@@ -16,12 +16,10 @@ CREATE TABLE users (
     address VARCHAR(255) NOT NULL
 );
 
-ALTER TABLE users 
-ALTER COLUMN is_active SET DEFAULT FALSE;
+ALTER TABLE users ALTER COLUMN is_active SET DEFAULT FALSE;
 
-ALTER TABLE users 
+ALTER TABLE users
 MODIFY role ENUM('client', 'owner') NOT NULL DEFAULT 'client';
-
 
 CREATE TABLE shop (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -31,8 +29,8 @@ CREATE TABLE shop (
     district_id INT NOT NULL,
     address VARCHAR(255) NOT NULL,
     location VARCHAR(255) NOT NULL,
-    FOREIGN KEY (owner_id) REFERENCES users(id),
-    FOREIGN KEY (district_id) REFERENCES district(id)
+    FOREIGN KEY (owner_id) REFERENCES users (id),
+    FOREIGN KEY (district_id) REFERENCES district (id)
 );
 
 CREATE TABLE tool (
@@ -40,16 +38,16 @@ CREATE TABLE tool (
     name VARCHAR(255) NOT NULL,
     brand VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    tool_price DECIMAL(8,2) NOT NULL
+    tool_price DECIMAL(8, 2) NOT NULL
 );
 
 CREATE TABLE shop_tool (
     id INT AUTO_INCREMENT PRIMARY KEY,
     shop_id INT NOT NULL,
     tool_id INT NOT NULL,
-    rent_price DECIMAL(8,2) NOT NULL,
-    FOREIGN KEY (shop_id) REFERENCES shop(id),
-    FOREIGN KEY (tool_id) REFERENCES tool(id)
+    rent_price DECIMAL(8, 2) NOT NULL,
+    FOREIGN KEY (shop_id) REFERENCES shop (id),
+    FOREIGN KEY (tool_id) REFERENCES tool (id)
 );
 
 CREATE TABLE orders (
@@ -57,11 +55,18 @@ CREATE TABLE orders (
     client_id INT NOT NULL,
     shop_tool_id INT NOT NULL,
     order_date DATE NOT NULL,
-    period INT NOT NULL, 
-    total_price DECIMAL(8,2) NOT NULL,
-    FOREIGN KEY (client_id) REFERENCES users(id),
-    FOREIGN KEY (shop_tool_id) REFERENCES shop_tool(id)
+    period INT NOT NULL,
+    total_price DECIMAL(8, 2) NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES users (id),
+    FOREIGN KEY (shop_tool_id) REFERENCES shop_tool (id)
 );
 
-ALTER TABLE orders 
-MODIFY order_date DATE NOT NULL DEFAULT (CURRENT_DATE);
+ALTER TABLE orders
+MODIFY order_date DATE NOT NULL DEFAULT(CURRENT_DATE);
+
+SELECT district.name as District, shop.name as Shop, users.name as UserName, users.phone_number as PhoneNumber
+FROM shop
+    LEFT JOIN district on shop.district_id = district.id
+    LEFT JOIN users on shop.owner_id = users.id
+WHERE
+    district.name = "Yunusobod"

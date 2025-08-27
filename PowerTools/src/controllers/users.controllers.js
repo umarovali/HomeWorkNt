@@ -85,7 +85,7 @@ const Register = (req, res) => {
     query,
     [name, phone_number, email, hash, active, userRole, address],
     (error, results) => {
-      if (error) {
+      if (error) {  
         if (error.code === "ER_DUP_ENTRY") {
           return res.status(400).json({ message: "Email already exists" });
         }
@@ -114,6 +114,7 @@ const Login = (req, res) => {
   const { email, password } = req.body;
 
   const query = "SELECT * FROM users WHERE email = ? LIMIT 1";
+  
   db.query(query, [email], (error, results) => {
     if (error) {
       return res.status(500).json({ message: "Database error" });
@@ -130,7 +131,7 @@ const Login = (req, res) => {
       return res.status(401).json({ message: "Invalid password" });
     }
 
-    let token = jwt.sign({ id: user.id }, SECKRETKEY);
+    let token = jwt.sign({ id: user.id, is_active: user.is_active }, SECKRETKEY);
 
     return res.status(200).json({
       message: "Login successful",

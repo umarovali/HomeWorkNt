@@ -7,6 +7,139 @@
 	},
 	"item": [
 		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Create Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"full_name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"123456\",\n  \"phone_number\": \"+998901234567\",\n  \"is_active\": true,\n  \"is_creator\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Admins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Admin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Admin",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"full_name\": \"Updated User\",\n  \"email\": \"updated@example.com\",\n  \"password\": \"654321\",\n  \"phone_number\": \"+998909876543\",\n  \"is_active\": false,\n  \"is_creator\": true\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Admin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admin/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Users",
 			"item": [
 				{

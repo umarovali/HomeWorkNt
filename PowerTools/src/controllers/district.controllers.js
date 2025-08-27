@@ -21,14 +21,30 @@ const Create = (req, res) => {
 };
 
 const GetAll = (req, res) => {
-  const query = "SELECT * FROM district";
+  const { name } = req.query;
 
-  db.query(query, (err, result) => {
-    if (err)
+  let query = "SELECT * FROM district";
+  const params = [];
+
+  if (name) {
+    query = `
+        SELECT district.name as district, shop.name as shop, users.name as user_name, users.phone_number as phone_number FROM shop
+        LEFT JOIN district on shop.district_id = district.id
+        LEFT JOIN users on shop.owner_id = users.id
+        WHERE district.name = ?
+    `;
+    params.push(name);
+  }
+
+  db.query(query, params, (err, result) => {
+    if (err) {
+      console.log(err);
       return res.status(500).json({ message: "Error retrieving District" });
+    }
+
     res.json({
       statusCode: 200,
-      message: "District retАrieved successfully",
+      message: "District retrieved successfully",
       data: result,
     });
   });
