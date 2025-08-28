@@ -61,6 +61,9 @@ CREATE TABLE orders (
     FOREIGN KEY (shop_tool_id) REFERENCES shop_tool (id)
 );
 
+ALTER TABLE orders 
+MODIFY total_price DECIMAL(10,2) NOT NULL DEFAULT 0;
+
 ALTER TABLE orders
 MODIFY order_date DATE NOT NULL DEFAULT(CURRENT_DATE);
 
@@ -70,3 +73,18 @@ FROM shop
     LEFT JOIN users on shop.owner_id = users.id
 WHERE
     district.name = "Yunusobod"
+
+CREATE TRIGGER before_insert_orders
+BEFORE INSERT ON orders
+FOR EACH ROW
+BEGIN
+    DECLARE tool_price DECIMAL(10,2);
+
+    -- Получаем цену аренды из shop_tool
+    SELECT rent_price INTO tool_price
+    FROM shop_tool
+    WHERE id = NEW.shop_tool_id;
+
+    -- Считаем total_price
+    SET NEW.total_price = tool_price * NEW.period;
+END

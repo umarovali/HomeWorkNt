@@ -18,45 +18,39 @@ const Create = (req, res) => {
         .json({ message: "Invalid client_id: user is not a client" });
     }
 
-    const getPrice = `SELECT rent_price FROM shop_tool WHERE id = ?`;
+    const checkTool = `SELECT id FROM shop_tool WHERE id = ?`;
 
-    db.query(getPrice, [shop_tool_id], (error, priceResult) => {
+    db.query(checkTool, [shop_tool_id], (error, toolResult) => {
       if (error) {
         console.log(error);
-        return res.status(500).json({ message: "Error getting rent_price" });
+        return res.status(500).json({ message: "Error checking shop_tool" });
       }
 
-      if (priceResult.length === 0) {
+      if (toolResult.length === 0) {
         return res.status(400).json({ message: "Invalid shop_tool_id" });
       }
 
-      const rent_price = priceResult[0].rent_price;
-      const total_price = rent_price * period;
-
-      const query =`
-        INSERT INTO orders (client_id, shop_tool_id, period, total_price)
-        VALUES (?, ?, ?, ?)
+      const query = `
+        INSERT INTO orders (client_id, shop_tool_id, period)
+        VALUES (?, ?, ?)
       `;
 
-      db.query(
-        query,
-        [client_id, shop_tool_id, period, total_price],
-        (error, results) => {
-          if (error) {
-            console.log(error);
-            return res.status(500).json({ message: "Error adding order" });
-          }
-
-          return res.status(201).json({
-            message: "Order created successfully",
-            status: 201,
-            id: results.insertId,
-          });
+      db.query(query, [client_id, shop_tool_id, period], (error, results) => {
+        if (error) {
+          console.log(error);
+          return res.status(500).json({ message: "Error adding order" });
         }
-      );
+
+        return res.status(201).json({
+          message: "Order created successfully",
+          status: 201,
+          id: results.insertId,
+        });
+      });
     });
   });
 };
+
 
 const GetAll = (req, res) => {
   const query = "SELECT * FROM orders";
